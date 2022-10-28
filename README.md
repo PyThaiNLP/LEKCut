@@ -32,4 +32,4 @@ If you has trained custom your model from deepcut or other that LEKCut support, 
 
 ## How to porting model?
 
-See ```noebooks/```
+See ```notebooks/```
