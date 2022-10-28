@@ -15,8 +15,20 @@ word_tokenize("ทดสอบการตัดคำ")
 # output: ['ทดสอบ', 'การ', 'ตัด', 'คำ']
 ```
 
-**Model**
-- ```deepcut``` - We ported deepcut model from tensorflow.keras to ONNX model. The model and code come from [Deepcut's Github](https://github.com/rkcosmos/deepcut).
+**API**
+
+```python
+word_tokenize(text: str, model: str="deepcut", path: str="default") -> List[str]
+```
+
+## Model
+- ```deepcut``` - We ported deepcut model from tensorflow.keras to ONNX model. The model and code come from [Deepcut's Github](https://github.com/rkcosmos/deepcut). The model is [here](https://github.com/PyThaiNLP/LEKCut/blob/main/lekcut/model/deepcut.onnx).
+
+### Load custom model
+
+If you has trained custom your model from deepcut or other that LEKCut support, You can load the custom model by ```path``` in ```word_tokenize``` after porting your model.
+
+- How to train custom model ith your dataset by deepcut - [Notebook](https://github.com/rkcosmos/deepcut/blob/master/notebooks/training.ipynb)
 
 ## How to porting model?
 
