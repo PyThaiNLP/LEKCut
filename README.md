@@ -1,7 +1,7 @@
 # LEKCut
 <a href="https://pypi.python.org/pypi/lekcut"><img alt="pypi" src="https://img.shields.io/pypi/v/lekcut.svg"/></a>
 
-LEKCut (เล็ก คัด) is a Thai tokenization library that porting deep learning model to onnx model.
+LEKCut (เล็ก คัด) is a Thai tokenization library that ports the deep learning model to the onnx model.
 
 ## Install
 

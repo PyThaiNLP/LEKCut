@@ -10,7 +10,7 @@ with open("requirements.txt","r",encoding="utf-8-sig") as f:
 setup(
     name="LEKCut",
     version="0.1",
-    description="LEKCut (เล็ก คัด) is a Thai tokenization library that porting deep learning model to onnx model.",
+    description="LEKCut (เล็ก คัด) is a Thai tokenization library that ports the deep learning model to the onnx model.",
     long_description=readme,
     long_description_content_type="text/markdown",
     author="Wannaphong Phatthiyaphaibun",
