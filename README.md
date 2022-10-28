@@ -26,7 +26,7 @@ word_tokenize(text: str, model: str="deepcut", path: str="default") -> List[str]
 
 ### Load custom model
 
-If you has trained custom your model from deepcut or other that LEKCut support, You can load the custom model by ```path``` in ```word_tokenize``` after porting your model.
+If you have trained your custom model from deepcut or other that LEKCut support, You can load the custom model by ```path``` in ```word_tokenize``` after porting your model.
 
 - How to train custom model with your dataset by deepcut - [Notebook](https://github.com/rkcosmos/deepcut/blob/master/notebooks/training.ipynb) (Needs to update ```deepcut/train.py``` before train model)
 
