@@ -4,7 +4,7 @@ from typing import List
 from lekcut.deepcut import tokenize
 
 
-def word_tokenize(text: str, model: str="deepcut", path: str="default") -> List[str]:
+def word_tokenize(text: str, model: str="deepcut", path: str="default", providers: List[str]=None) -> List[str]:
     if model != "deepcut":
         raise NotImplementedError("Not support {} model.".format(model))
-    return tokenize(text, path=path)
+    return tokenize(text, path=path, providers=providers)

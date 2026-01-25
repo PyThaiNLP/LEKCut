@@ -99,26 +99,31 @@ def create_n_gram_df(df, n_pad):
     return df[n_pad_2: -n_pad_2]
 
 _TOKENIZER = None
-def tokenize(text: str, path: str="default") -> List[str]:
+def tokenize(text: str, path: str="default", providers: List[str]=None) -> List[str]:
     global _TOKENIZER
     if path=="default":
         path = get_path("deepcut.onnx")
     if _TOKENIZER == None:
-        _TOKENIZER = Tokenizer(path=path)
-    elif _TOKENIZER.path != path:
-        _TOKENIZER = Tokenizer(path=path)
+        _TOKENIZER = Tokenizer(path=path, providers=providers)
+    elif _TOKENIZER.path != path or _TOKENIZER.providers != providers:
+        _TOKENIZER = Tokenizer(path=path, providers=providers)
     return _TOKENIZER.tokenize(text)
 
 
 class Tokenizer:
-    def __init__(self, path: str, n_pad: int=21) -> None:
+    def __init__(self, path: str, n_pad: int=21, providers: List[str]=None) -> None:
         self.path = path
         self.n_pad = n_pad
-        self.load_model(self.path)
+        self.providers = providers
+        self.load_model(self.path, providers=providers)
 
-    def load_model(self, path: str):
+    def load_model(self, path: str, providers: List[str]=None):
         self.path = path
-        self.model = ort.InferenceSession(self.path)
+        self.providers = providers
+        if providers is None:
+            self.model = ort.InferenceSession(self.path)
+        else:
+            self.model = ort.InferenceSession(self.path, providers=providers)
     
     def tokenize(self, text: str) -> List[str]:
         self.x_char, self.x_type = create_feature_array(text, n_pad=self.n_pad)
