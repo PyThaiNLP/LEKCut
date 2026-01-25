@@ -98,6 +98,18 @@ def create_n_gram_df(df, n_pad):
         df['type{}'.format(i+1)] = df['type'].shift(-i - 1)
     return df[n_pad_2: -n_pad_2]
 
+def _compare_providers(p1: List[str], p2: List[str]) -> bool:
+    """
+    Compare two provider lists for equality.
+    Handles None values and ensures proper list comparison.
+    """
+    if p1 is None and p2 is None:
+        return True
+    if p1 is None or p2 is None:
+        return False
+    return p1 == p2
+
+
 _TOKENIZER = None
 def tokenize(text: str, path: str="default", providers: List[str]=None) -> List[str]:
     global _TOKENIZER
@@ -105,7 +117,7 @@ def tokenize(text: str, path: str="default", providers: List[str]=None) -> List[
         path = get_path("deepcut.onnx")
     if _TOKENIZER == None:
         _TOKENIZER = Tokenizer(path=path, providers=providers)
-    elif _TOKENIZER.path != path or _TOKENIZER.providers != providers:
+    elif _TOKENIZER.path != path or not _compare_providers(_TOKENIZER.providers, providers):
         _TOKENIZER = Tokenizer(path=path, providers=providers)
     return _TOKENIZER.tokenize(text)
 
