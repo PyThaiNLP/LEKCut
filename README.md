@@ -18,8 +18,43 @@ word_tokenize("ทดสอบการตัดคำ")
 **API**
 
 ```python
-word_tokenize(text: str, model: str="deepcut", path: str="default") -> List[str]
+word_tokenize(text: str, model: str="deepcut", path: str="default", providers: List[str]=None) -> List[str]
 ```
+
+**Parameters:**
+- `text`: Text to tokenize
+- `model`: Model to use (default: "deepcut")
+- `path`: Path to custom model file (default: "default")
+- `providers`: List of ONNX Runtime execution providers (default: None, which uses default CPU provider)
+
+### GPU Support
+
+LEKCut supports GPU acceleration through ONNX Runtime execution providers. To use GPU acceleration:
+
+1. Install ONNX Runtime with GPU support:
+   ```bash
+   pip install onnxruntime-gpu
+   ```
+
+2. Use the `providers` parameter to specify GPU execution:
+   ```python
+   from lekcut import word_tokenize
+   
+   # Use CUDA GPU
+   result = word_tokenize("ทดสอบการตัดคำ", providers=['CUDAExecutionProvider', 'CPUExecutionProvider'])
+   
+   # Use TensorRT (if available)
+   result = word_tokenize("ทดสอบการตัดคำ", providers=['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider'])
+   ```
+
+**Available Execution Providers:**
+- `CPUExecutionProvider` - Default CPU execution
+- `CUDAExecutionProvider` - NVIDIA CUDA GPU acceleration
+- `TensorrtExecutionProvider` - NVIDIA TensorRT optimization
+- `DmlExecutionProvider` - DirectML for Windows GPU
+- And more (see [ONNX Runtime documentation](https://onnxruntime.ai/docs/execution-providers/))
+
+**Note:** The providers are tried in order, and the first available one will be used. Always include `CPUExecutionProvider` as a fallback.
 
 ## Model
 - ```deepcut``` - We ported deepcut model from tensorflow.keras to ONNX model. The model and code come from [Deepcut's Github](https://github.com/rkcosmos/deepcut). The model is [here](https://github.com/PyThaiNLP/LEKCut/blob/main/lekcut/model/deepcut.onnx).
