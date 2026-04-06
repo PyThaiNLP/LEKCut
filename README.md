@@ -11,7 +11,17 @@ LEKCut (เล็ก คัด) is a Thai tokenization library that ports the de
 
 ```python
 from lekcut import word_tokenize
+
+# DeepCut model (default)
 word_tokenize("ทดสอบการตัดคำ")
+# output: ['ทดสอบ', 'การ', 'ตัด', 'คำ']
+
+# AttaCut syllable + character model
+word_tokenize("ทดสอบการตัดคำ", model="attacut-sc")
+# output: ['ทดสอบ', 'การ', 'ตัด', 'คำ']
+
+# AttaCut character-only model
+word_tokenize("ทดสอบการตัดคำ", model="attacut-c")
 # output: ['ทดสอบ', 'การ', 'ตัด', 'คำ']
 ```
 
@@ -23,7 +33,7 @@ word_tokenize(text: str, model: str="deepcut", path: str="default", providers: L
 
 **Parameters:**
 - `text`: Text to tokenize
-- `model`: Model to use (default: "deepcut")
+- `model`: Model to use. Options: `"deepcut"` (default), `"attacut-sc"`, `"attacut-c"`
 - `path`: Path to custom model file (default: "default")
 - `providers`: List of ONNX Runtime execution providers (default: None, which uses default CPU provider)
 
@@ -58,6 +68,8 @@ LEKCut supports GPU acceleration through ONNX Runtime execution providers. To us
 
 ## Model
 - ```deepcut``` - We ported deepcut model from tensorflow.keras to ONNX model. The model and code come from [Deepcut's Github](https://github.com/rkcosmos/deepcut). The model is [here](https://github.com/PyThaiNLP/LEKCut/blob/main/lekcut/model/deepcut.onnx).
+- ```attacut-sc``` - We ported the AttaCut syllable + character model from PyTorch to ONNX. The model and code come from [AttaCut's Github](https://github.com/PyThaiNLP/attacut). Requires the `ssg` package for syllable tokenization.
+- ```attacut-c``` - We ported the AttaCut character-only model from PyTorch to ONNX. The model and code come from [AttaCut's Github](https://github.com/PyThaiNLP/attacut).
 
 ### Load custom model
 
