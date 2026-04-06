@@ -2,3 +2,5 @@ numpy
 onnxruntime
 onnx
 ssg
+python-crfsuite
+pyahocorasick
