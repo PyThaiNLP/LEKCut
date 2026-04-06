@@ -23,19 +23,34 @@ word_tokenize("ทดสอบการตัดคำ", model="attacut-sc")
 # AttaCut character-only model
 word_tokenize("ทดสอบการตัดคำ", model="attacut-c")
 # output: ['ทดสอบ', 'การ', 'ตัด', 'คำ']
+
+# OSKut model (requires: pip install OSKut)
+word_tokenize("เบียร์ยูไม่อร่อย", model="oskut")
+
+# OSKut with a specific engine
+word_tokenize("เบียร์ยูไม่อร่อย", model="oskut", engine="tnhc")
 ```
 
 **API**
 
 ```python
-word_tokenize(text: str, model: str="deepcut", path: str="default", providers: List[str]=None) -> List[str]
+word_tokenize(
+    text: str,
+    model: str = "deepcut",
+    path: str = "default",
+    providers: List[str] = None,
+    engine: str = "ws",
+    k: int = 1,
+) -> List[str]
 ```
 
 **Parameters:**
 - `text`: Text to tokenize
-- `model`: Model to use. Options: `"deepcut"` (default), `"attacut-sc"`, `"attacut-c"`
-- `path`: Path to custom model file (default: "default")
-- `providers`: List of ONNX Runtime execution providers (default: None, which uses default CPU provider)
+- `model`: Model to use. Options: `"deepcut"` (default), `"attacut-sc"`, `"attacut-c"`, `"oskut"`
+- `path`: Path to custom model file (default: "default", applies to `deepcut` and `attacut-*` models)
+- `providers`: List of ONNX Runtime execution providers (default: None, which uses default CPU provider; applies to `deepcut` and `attacut-*` models)
+- `engine`: OSKut engine variant (applies to `"oskut"` model only). Options: `"ws"` (default), `"ws-augment-60p"`, `"tnhc"`, `"best"`, `"scads"`, `"tl-deepcut-ws"`, `"tl-deepcut-tnhc"`, `"deepcut"`
+- `k`: Percentage of characters to refine for OSKut (applies to `"oskut"` model only). The special default value of `1` is a sentinel that lets OSKut automatically select an appropriate percentage based on the engine. Pass any integer from 2 to 100 to override.
 
 ### GPU Support
 
@@ -70,6 +85,7 @@ LEKCut supports GPU acceleration through ONNX Runtime execution providers. To us
 - ```deepcut``` - We ported deepcut model from tensorflow.keras to ONNX model. The model and code come from [Deepcut's Github](https://github.com/rkcosmos/deepcut). The model is [here](https://github.com/PyThaiNLP/LEKCut/blob/main/lekcut/model/deepcut.onnx).
 - ```attacut-sc``` - We ported the AttaCut syllable + character model from PyTorch to ONNX. The model and code come from [AttaCut's Github](https://github.com/PyThaiNLP/attacut). Requires the `ssg` package for syllable tokenization.
 - ```attacut-c``` - We ported the AttaCut character-only model from PyTorch to ONNX. The model and code come from [AttaCut's Github](https://github.com/PyThaiNLP/attacut).
+- ```oskut``` - OSKut (Out-of-domain Stacked Cut) is a Thai word segmentation model based on a stacked ensemble framework. The model and code come from [OSKut's Github](https://github.com/mrpeerat/OSKut). Requires the `OSKut` package (`pip install OSKut`). Supports multiple engines: `ws` (default), `ws-augment-60p`, `tnhc`, `best`, `scads`, `tl-deepcut-ws`, `tl-deepcut-tnhc`, `deepcut`.
 
 ### Load custom model
 
