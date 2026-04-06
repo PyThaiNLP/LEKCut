@@ -34,9 +34,8 @@ def word_tokenize(
         ``attacut-*`` models only).
     engine:
         OSKut engine variant (applies to ``"oskut"`` model only). Options:
-        ``"ws"`` (default), ``"ws-augment-60p"``, ``"tnhc"``, ``"best"``,
-        ``"scads"``, ``"tl-deepcut-ws"``, ``"tl-deepcut-tnhc"``,
-        ``"deepcut"``.
+        ``"ws"`` (default), ``"ws-augment-60p"``, ``"tnhc"``, ``"scads"``,
+        ``"tl-deepcut-ws"``, ``"tl-deepcut-tnhc"``, ``"deepcut"``.
     k:
         Percentage of characters to refine for OSKut (applies to
         ``"oskut"`` model only). The special default value of ``1`` is a
@@ -49,5 +48,5 @@ def word_tokenize(
     if model in _ATTACUT_MODELS:
         return _attacut.tokenize(text, model=model, path=path, providers=providers)
     if model == "oskut":
-        return _oskut.tokenize(text, engine=engine, k=k)
+        return _oskut.tokenize(text, engine=engine, k=k, providers=providers)
     raise NotImplementedError("Not support {} model.".format(model))
