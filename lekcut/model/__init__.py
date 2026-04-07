@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
-import lekcut
 import os
-
-lekcut_path = os.path.join(os.path.dirname(lekcut.__file__), "model")
+from importlib import resources
+import lekcut
 
 def get_path(file: str) -> str:
-    return os.path.join(lekcut_path, file)
+    # 1. Prevent Directory Traversal
+    # Ensures the filename doesn't contain '..' or absolute paths
+    basename = os.path.basename(file)
+    
+    # 2. Use importlib to locate the resource within the 'lekcut.model' sub-package
+    # 'files()' is available in Python 3.9+
+    with resources.as_file(resources.files(lekcut) / "model" / basename) as path:
+        return str(path)
