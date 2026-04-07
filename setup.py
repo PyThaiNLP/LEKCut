@@ -9,7 +9,7 @@ with open("requirements.txt","r",encoding="utf-8-sig") as f:
 
 setup(
     name="LEKCut",
-    version="0.1",
+    version="1.0.0-beta1",
     description="LEKCut (เล็ก คัด) is a Thai tokenization library that ports the deep learning model to the onnx model.",
     long_description=readme,
     long_description_content_type="text/markdown",
@@ -18,7 +18,7 @@ setup(
     url="https://github.com/PyThaiNLP/LEKCut",
     packages=find_packages(),
     test_suite="tests",
-    python_requires=">=3.6",
+    python_requires=">=3.9",
     package_data={
         "lekcut": [
             "model/*",
@@ -38,7 +38,7 @@ setup(
         "Thai language",
     ],
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
