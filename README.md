@@ -31,6 +31,10 @@ word_tokenize("เบียร์ยูไม่อร่อย", model="oskut")
 # OSKut with a specific engine
 word_tokenize("เบียร์ยูไม่อร่อย", model="oskut", engine="tnhc")
 # output: ['เบียร์', 'ยู', 'ไม่', 'อร่อย']
+
+# SEFR_CUT model
+word_tokenize("เบียร์ยูไม่อร่อย", model="sefr-tnhc")
+# output: ['เบียร์', 'ยู', 'ไม่', 'อร่อย']
 ```
 
 **API**
@@ -48,7 +52,7 @@ word_tokenize(
 
 **Parameters:**
 - `text`: Text to tokenize
-- `model`: Model to use. Options: `"deepcut"` (default), `"attacut-sc"`, `"attacut-c"`, `"oskut"`
+- `model`: Model to use. Options: `"deepcut"` (default), `"attacut-sc"`, `"attacut-c"`, `"oskut"`, `"sefr-best"`, `"sefr-tnhc"`, `"sefr-ws1000"`
 - `path`: Path to custom model file (default: "default", applies to `deepcut` and `attacut-*` models)
 - `providers`: List of ONNX Runtime execution providers (default: None, which uses default CPU provider)
 - `engine`: OSKut engine variant (applies to `"oskut"` model only). Options: `"ws"` (default), `"ws-augment-60p"`, `"tnhc"`, `"scads"`, `"tl-deepcut-ws"`, `"tl-deepcut-tnhc"`, `"deepcut"`
@@ -88,6 +92,7 @@ LEKCut supports GPU acceleration through ONNX Runtime execution providers. To us
 - ```attacut-sc``` - We ported the AttaCut syllable + character model from PyTorch to ONNX. The model and code come from [AttaCut's Github](https://github.com/PyThaiNLP/attacut). Requires the `ssg` package for syllable tokenization.
 - ```attacut-c``` - We ported the AttaCut character-only model from PyTorch to ONNX. The model and code come from [AttaCut's Github](https://github.com/PyThaiNLP/attacut).
 - ```oskut``` - We ported the OSKut (Out-of-domain Stacked Cut) stacked ensemble models from TensorFlow/Keras to ONNX. The model and code come from [OSKut's Github](https://github.com/mrpeerat/OSKut). Requires the `pyahocorasick` package. Supports multiple engines: `ws` (default), `ws-augment-60p`, `tnhc`, `scads`, `tl-deepcut-ws`, `tl-deepcut-tnhc`, `deepcut`.
+- ```SEFR_CUT```- We ported the SEFR CUT (Stacked Ensemble Filter and Refine for Word Segmentation) model from PyTorch to ONNX. The model and code come from [SEFR_CUT's Github](https://github.com/mrpeerat/SEFR_CUT).
 
 ### Load custom model
 
