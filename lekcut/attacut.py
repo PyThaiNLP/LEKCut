@@ -203,6 +203,8 @@ class AttacutSCTokenizer(_AttacutTokenizer):
         return characters, features
 
     def tokenize(self, text: str) -> List[str]:
+        if not text:
+            return []
         tokens, features = self._make_feature(text)
         logits = self.model.run(None, {"input": features})[0]
         preds = (_sigmoid(logits) > 0.5).astype(int)
@@ -232,6 +234,8 @@ class AttacutCTokenizer(_AttacutTokenizer):
         return characters, features
 
     def tokenize(self, text: str) -> List[str]:
+        if not text:
+            return []
         tokens, features = self._make_feature(text)
         logits = self.model.run(None, {"input": features})[0]
         preds = (_sigmoid(logits) > 0.5).astype(int)
