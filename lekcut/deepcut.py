@@ -138,6 +138,8 @@ class Tokenizer:
             self.model = ort.InferenceSession(self.path, providers=providers)
     
     def tokenize(self, text: str) -> List[str]:
+        if not text:
+            return []
         self.x_char, self.x_type = create_feature_array(text, n_pad=self.n_pad)
         self.x_char = self.x_char.astype(np.float32)
         self.x_type= self.x_type.astype(np.float32)
