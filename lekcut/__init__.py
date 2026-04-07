@@ -4,8 +4,10 @@ from typing import List, Optional
 import lekcut.deepcut as _deepcut
 import lekcut.attacut as _attacut
 import lekcut.oskut as _oskut
+import lekcut.sefrcut as _sefrcut
 
 _ATTACUT_MODELS = {"attacut-sc", "attacut-c"}
+_SEFRCUT_ENGINES = {"sefr-ws1000", "sefr-tnhc", "sefr-best"}
 
 
 def word_tokenize(
@@ -49,4 +51,7 @@ def word_tokenize(
         return _attacut.tokenize(text, model=model, path=path, providers=providers)
     if model == "oskut":
         return _oskut.tokenize(text, engine=engine, k=k, providers=providers)
+    if model in _SEFRCUT_ENGINES:
+        engine = model[len("sefr-"):]
+        return _sefrcut.tokenize(text, engine=engine, deepcut_path=path, providers=providers)
     raise NotImplementedError("Not support {} model.".format(model))
