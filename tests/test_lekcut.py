@@ -20,7 +20,7 @@ class TestWordTokenizeDeepcut(unittest.TestCase):
 
     def test_empty_string(self):
         result = word_tokenize("", model="deepcut")
-        self.assertIsInstance(result, list)
+        self.assertEqual(result, [])
 
     def test_single_word(self):
         result = word_tokenize("สวัสดี", model="deepcut")
@@ -49,7 +49,7 @@ class TestWordTokenizeAttacutSC(unittest.TestCase):
 
     def test_empty_string(self):
         result = word_tokenize("", model="attacut-sc")
-        self.assertIsInstance(result, list)
+        self.assertEqual(result, [])
 
     def test_output_joins_to_input(self):
         text = "ภาษาไทยสวยงาม"
@@ -68,7 +68,7 @@ class TestWordTokenizeAttacutC(unittest.TestCase):
 
     def test_empty_string(self):
         result = word_tokenize("", model="attacut-c")
-        self.assertIsInstance(result, list)
+        self.assertEqual(result, [])
 
     def test_output_joins_to_input(self):
         text = "ภาษาไทยสวยงาม"
@@ -105,6 +105,10 @@ class TestWordTokenizeSefrWs1000(unittest.TestCase):
         self.assertTrue(len(result) > 0)
         self.assertEqual("".join(result), "ทดสอบการตัดคำ")
 
+    def test_empty_string(self):
+        result = word_tokenize("", model="sefr-ws1000")
+        self.assertEqual(result, [])
+
     def test_output_joins_to_input(self):
         text = "ภาษาไทยสวยงาม"
         result = word_tokenize(text, model="sefr-ws1000")
@@ -120,6 +124,10 @@ class TestWordTokenizeSefrTnhc(unittest.TestCase):
         self.assertTrue(len(result) > 0)
         self.assertEqual("".join(result), "ทดสอบการตัดคำ")
 
+    def test_empty_string(self):
+        result = word_tokenize("", model="sefr-tnhc")
+        self.assertEqual(result, [])
+
     def test_output_joins_to_input(self):
         text = "ภาษาไทยสวยงาม"
         result = word_tokenize(text, model="sefr-tnhc")
@@ -134,6 +142,10 @@ class TestWordTokenizeSefrBest(unittest.TestCase):
         self.assertIsInstance(result, list)
         self.assertTrue(len(result) > 0)
         self.assertEqual("".join(result), "ทดสอบการตัดคำ")
+
+    def test_empty_string(self):
+        result = word_tokenize("", model="sefr-best")
+        self.assertEqual(result, [])
 
     def test_output_joins_to_input(self):
         text = "ภาษาไทยสวยงาม"
