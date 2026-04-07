@@ -46,7 +46,7 @@ jobs:
     name: Check build trigger
     runs-on: ubuntu-latest
     # Not for forks
-    if: github.repository == 'pythainlp/pythainlp'
+    if: github.repository == 'pythainlp/LEKCut'
     outputs:
       build: ${{ steps.check_build_trigger.outputs.build }}
     steps:
